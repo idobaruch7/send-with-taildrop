@@ -64,21 +64,21 @@ for _, peer in peers.items():
   name = peer.get("HostName") or peer.get("Name") or dns_name or "unknown"
   target = dns_name or name
   online = bool(peer.get("Online", False))
-  status = "online" if online else "offline"
-  rows.append((name.lower(), target, name, status))
+  if not online:
+    continue
+  rows.append((name.lower(), target, name))
 
 if not rows:
   print("__NO_MATCHING_DEVICES__")
   sys.exit(0)
 
 rows.sort(key=lambda x: x[0])
-for _, target, name, status in rows:
-    shown_target = target
-    if shown_target.endswith(".vpn.internal"):
-        shown_target = shown_target[: -len(".vpn.internal")]
-    dot = "[+]" if status == "online" else "[-]"
-    print(target)
-    print(f"{dot} {name} ({status}) [{shown_target}]")
+for _, target, name in rows:
+  shown_target = target
+  if shown_target.endswith(".vpn.internal"):
+      shown_target = shown_target[: -len(".vpn.internal")]
+  print(target)
+  print(f"{shown_target} [{name}]")
 PY
 )"; then
     err "Failed to parse Tailscale device list from status output."
@@ -91,7 +91,7 @@ PY
   fi
 
   if [[ "$selection_data" == "__NO_MATCHING_DEVICES__" ]]; then
-    err "No devices found for your user."
+    err "No online devices found for your user."
     exit 1
   fi
 
