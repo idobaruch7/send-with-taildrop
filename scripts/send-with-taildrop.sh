@@ -117,6 +117,11 @@ send_paths() {
   local target="$1"
   shift
 
+  local shown_target="$target"
+  if [[ "$shown_target" == *.vpn.internal ]]; then
+    shown_target="${shown_target%.vpn.internal}"
+  fi
+
   local total="$#"
   local sent=0
   local failed=0
@@ -129,15 +134,44 @@ send_paths() {
       continue
     fi
 
-    if tailscale file cp "$path" "$target:" >/dev/null 2>&1; then
+    local send_path="$path"
+    local temp_zip_dir=""
+
+    if [[ -d "$path" ]]; then
+      local normalized_path="$path"
+      if [[ "$normalized_path" != "/" ]]; then
+        normalized_path="${normalized_path%/}"
+      fi
+
+      local folder_parent
+      local folder_name
+      folder_parent="$(dirname "$normalized_path")"
+      folder_name="$(basename "$normalized_path")"
+
+      temp_zip_dir="$(mktemp -d)"
+      send_path="$temp_zip_dir/$folder_name.zip"
+
+      if ! (cd "$folder_parent" && zip -rq "$send_path" "$folder_name"); then
+        ((failed+=1))
+        failed_items+=("$path (zip failed)")
+        rm -rf "$temp_zip_dir"
+        continue
+      fi
+    fi
+
+    if tailscale file cp "$send_path" "$target:" >/dev/null 2>&1; then
       ((sent+=1))
     else
       ((failed+=1))
       failed_items+=("$path")
     fi
+
+    if [[ -n "$temp_zip_dir" ]]; then
+      rm -rf "$temp_zip_dir"
+    fi
   done
 
-  local summary="Sent $sent/$total item(s) to $target."
+  local summary="Sent $sent/$total item(s) to $shown_target."
   if (( failed > 0 )); then
     summary+=$'\n\nFailed item(s):'
     for item in "${failed_items[@]}"; do
@@ -162,6 +196,7 @@ main() {
   require_cmd tailscale
   require_cmd kdialog
   require_cmd python3
+  require_cmd zip
 
   local target
   if ! target="$(pick_device)"; then
