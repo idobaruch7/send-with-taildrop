@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=application/octet-stream;inode/directory;
+Actions=SendWithTaildrop;
+X-KDE-Priority=TopLevel
+
+[Desktop Action SendWithTaildrop]
+Name=Send with taildrop
+Icon=network-wireless
+TryExec=/usr/bin/env
+Exec=/usr/bin/env bash "@BIN_PATH@" %F
