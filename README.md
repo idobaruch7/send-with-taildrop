@@ -2,11 +2,11 @@
 
 Adds a right-click action in KDE Dolphin:
 
-**Send with taildrop**
+**Send via Tailscale...**
 
 The action opens a GUI picker (KDialog), lets you choose a Tailnet device, then sends selected files/directories using Taildrop.
 
-> Device picker note: only devices owned by the same Tailscale user are shown (`peer.UserID == Self.UserID`).
+> Device picker note: only **online** devices owned by the same Tailscale user are shown (`peer.UserID == Self.UserID` and `peer.Online == true`).
 
 ## Requirements
 
@@ -14,6 +14,7 @@ The action opens a GUI picker (KDialog), lets you choose a Tailnet device, then 
 - `tailscale` CLI installed and logged in
 - `kdialog`
 - `python3`
+- `zip`
 
 ## Install
 
@@ -34,8 +35,8 @@ This installs:
 ## Use
 
 1. In Dolphin, right-click one or more files/directories.
-2. Click **Send with taildrop**.
-3. Select the destination device (only your own-user devices are listed).
+2. Click **Send via Tailscale...**.
+3. Select the destination device (only your own-user, online devices are listed).
 4. Confirm the result dialog.
 
 ## Uninstall
@@ -53,14 +54,14 @@ This installs:
   - `tailscale status`
   - target device exists in your Tailnet
   - sender is logged in and has network connectivity
-- If no device appears, make sure at least one peer device has the same `UserID` as your current `Self.UserID` in `tailscale status --json`.
-- Offline devices are shown but usually cannot receive files until they are online.
+- If no device appears, make sure at least one peer device has the same `UserID` as your current `Self.UserID` in `tailscale status --json`, and that it is online.
+- Offline devices are filtered out by the picker.
 
 ## Why this is safe to use
 
 This integration is designed to be low-risk and transparent:
 
-- **User-triggered only**: It runs only when you explicitly click **Send with taildrop** in Dolphin (from [desktop/send-with-taildrop.desktop](desktop/send-with-taildrop.desktop)).
+- **User-triggered only**: It runs only when you explicitly click **Send via Tailscale...** in Dolphin (from [desktop/send-with-taildrop.desktop](desktop/send-with-taildrop.desktop)).
 - **Installs to user scope only**: The installer writes only to:
   - `~/.local/bin/send-with-taildrop`
   - `~/.local/share/kio/servicemenus/send-with-taildrop.desktop`  
