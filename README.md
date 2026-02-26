@@ -1,5 +1,9 @@
 # Send with taildrop (Linux)
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/cf910f8d-4019-46ca-8f5c-b730194607dd"/>
+</p>
+
 Adds a right-click action in KDE Dolphin:
 
 **Send via Tailscale...**
