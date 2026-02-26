@@ -13,8 +13,10 @@ The action opens a GUI picker (KDialog), lets you choose a Tailnet device, then 
 - Linux desktop with KDE Dolphin service menus
 - `tailscale` CLI installed and logged in
 - `kdialog`
+- `qdbus` (or `qdbus-qt5`/`qdbus-qt6`, ships with KDE Plasma)
 - `python3`
 - `zip`
+- `pv` (pipe viewer — for transfer progress)
 
 ## Install
 
