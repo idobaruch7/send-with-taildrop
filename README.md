@@ -1,4 +1,4 @@
-# Send with taildrop (Linux)
+# Send with Taildrop (Linux)
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/cf910f8d-4019-46ca-8f5c-b730194607dd"/>
