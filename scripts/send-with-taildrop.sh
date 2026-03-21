@@ -329,8 +329,8 @@ main() {
     exit 1
   fi
 
-  require_cmd tailscale
   require_cmd kdialog
+  require_cmd tailscale
   require_cmd python3
   require_cmd zip
   require_cmd pv
