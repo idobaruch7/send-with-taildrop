@@ -67,7 +67,7 @@ Installed:
 - $DESKTOP_DST
 
 Right-click a file or directory in Dolphin and choose:
-Send with taildrop
+"Send via Tailscale..."
 EOF
 }
 
