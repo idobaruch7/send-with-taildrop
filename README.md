@@ -54,6 +54,7 @@ This installs:
 ## Troubleshooting
 
 - If the menu item does not appear, restart Dolphin (`killall dolphin`) and open it again.
+- If selecting "Send via Tailscale..." has no effect, ensure `kdialog` is installed correctly, as it is required to display error messages outside of a console.
 - If you see an execution/authorization error, repair everything with:
   - `./scripts/install.sh`
 - If sending fails, verify:
