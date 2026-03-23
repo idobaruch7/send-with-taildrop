@@ -44,6 +44,8 @@ This installs:
 2. Click **Send via Tailscale...**.
 3. Select the destination device (only your own-user, online devices are listed).
 4. Confirm the result dialog.
+   > Note: Folders are automatically zipped before sending and arrive as `<foldername>`.zip.  
+   >  Multiple files are sent individually, not combined into a single archive.
 
 ## Uninstall
 
@@ -72,7 +74,7 @@ This integration is designed to be low-risk and transparent:
 - **Installs to user scope only**: The installer writes only to:
   - `~/.local/bin/send-with-taildrop`
   - `~/.local/share/kio/servicemenus/send-with-taildrop.desktop`  
-  (see [scripts/install.sh](scripts/install.sh))
+    (see [scripts/install.sh](scripts/install.sh))
 - **No `sudo`, no system-wide modification**: It does not require root and does not modify `/usr`, `/etc`, or system services.
 - **No hidden background daemon**: It is a one-shot script execution per click (see [scripts/send-with-taildrop.sh](scripts/send-with-taildrop.sh)).
 - **Explicit destination selection**: You must choose the target device in a dialog before anything is sent.
