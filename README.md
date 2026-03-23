@@ -1,6 +1,10 @@
 # Send with Taildrop (Linux)
 
 <p align="center">
+  <img src="https://github.com/user-attachments/assets/1ec2849e-1892-4361-ab71-90779818c231"/>
+</p>
+
+<p align="center">
   <img src="https://github.com/user-attachments/assets/cf910f8d-4019-46ca-8f5c-b730194607dd"/>
 </p>
 
